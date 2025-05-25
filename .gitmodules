@@ -1,0 +1,3 @@
+[submodule "src/rewarduq/utils_ext"]
+	path = src/rewarduq/utils_ext
+	url = git@github.com:danielyxyang/python-utils.git
