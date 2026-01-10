@@ -1,0 +1,10 @@
+# @package _global_
+
+defaults:
+  - /method/bayesian_linear_head/default@_here_
+
+model:
+  base_model_name_or_path: trl-internal-testing/tiny-Qwen2ForCausalLM-2.5
+
+trainer:
+  precompute_features: False

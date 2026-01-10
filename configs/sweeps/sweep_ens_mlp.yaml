@@ -1,0 +1,30 @@
+program: scripts/train.py
+method: grid
+
+parameters:
+  # seed:
+  #   values: [0, 1, 2]
+  trainer.learning_rate:
+    values: [1e-5, 1e-4, 1e-3]
+  trainer.regularization_towards_initial_weights:
+    values: [0, 0.1, 1]
+  trainer.center_rewards_coefficient:
+    values: [0, 0.01, 0.1]
+
+command:
+  - accelerate
+  - launch
+  - --config_file
+  - configs/accelerate/default.yaml
+  - ${program}
+  - --config-name
+  - train
+  - hydra.run.dir=${envvar:OUT}
+  - dataset/train=ultrafeedback_binarized
+  - dataset/eval=ultrafeedback_binarized
+  - method=mlp_head_ensemble/default
+  - model.base_model_name_or_path=Qwen/Qwen3-0.6B
+  - trainer.report_to=wandb
+  - wandb.entity=${envvar:WANDB_ENTITY}
+  - wandb.project=${envvar:WANDB_PROJECT}
+  - ${args_no_hyphens}

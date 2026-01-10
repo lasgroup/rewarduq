@@ -1,0 +1,41 @@
+# @package _global_
+
+defaults:
+  - /method/base@_here_
+
+pipeline: lora_ensemble.LoraEnsemblePipeline
+
+model:
+  # Base model parameters
+  base_model_init_kwargs:
+    dtype: bfloat16
+    low_cpu_mem_usage: True
+
+  # Lora parameters
+  peft_config:
+    inference_mode: False
+    r: 16
+    lora_alpha: 32
+    lora_dropout: 0
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", "score"]
+
+  # Reward and uncertainty calculation parameters
+  reward_function: mean
+  bounds_function: std
+  bounds_function_std_beta: 2.0
+
+trainer:
+  # Objective parameters
+  regularization_towards_initial_weights: 0.1
+  center_rewards_coefficient: 0.01
+
+  # Eval parameters: no evaluation, lora based ensemble is evaluated manually
+  eval_strategy: 'no'
+  eval_on_start: False
+  eval_on_end: False
+
+  # Checkpointing parameters
+  save_strategy: steps
+  save_steps: 0.05
+
+output_dirs: []

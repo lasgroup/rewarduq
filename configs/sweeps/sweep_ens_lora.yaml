@@ -1,0 +1,26 @@
+program: scripts/train.py
+method: grid
+
+parameters:
+  # seed:
+  #   values: [0, 1, 2]
+  trainer.learning_rate:
+    values: [1e-3, 1e-4, 1e-5]
+  trainer.regularization_towards_initial_weights:
+    values: [0.001, 0.01, 0.1]
+  trainer.center_rewards_coefficient:
+    values: [0.0, 0.1, 1.0]
+
+# TODO
+# The LoRA Ensemble sweep requires a special lora.job script
+# that trains the ensemble members in parallel and starts
+# a single evaluation job.
+
+command:
+  - bash
+  - -c
+  - bash lora.job "$@"
+  - IGNORE_ME
+  - dataset/train=ultrafeedback_binarized
+  - dataset/eval=ultrafeedback_binarized
+  - ${args_no_hyphens}

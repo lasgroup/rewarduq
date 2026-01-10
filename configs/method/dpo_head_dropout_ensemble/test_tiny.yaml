@@ -1,0 +1,9 @@
+# @package _global_
+
+defaults:
+  - /method/dpo_head_dropout_ensemble/default@_here_
+
+model:
+  base_model_name_or_path: trl-internal-testing/tiny-Qwen2ForCausalLM-2.5
+
+  num_samples_eval: 3

@@ -1,0 +1,4 @@
+path: trl-internal-testing/zen
+name: standard_preference
+split: train
+num_samples: all

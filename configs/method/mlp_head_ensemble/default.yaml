@@ -1,0 +1,37 @@
+# @package _global_
+
+defaults:
+  - /method/base@_here_
+
+pipeline: mlp_head_ensemble.MLPHeadEnsemblePipeline
+
+model:
+  # Feature extraction parameters
+  feature_extraction_layer: last_hidden_state
+  feature_extraction_pooling_strategy: last
+
+  # Head parameters
+  head_hidden_dim: 128
+  head_num_layers: 2
+  head_activation: ReLU
+  head_initialization: xavier_uniform_
+  head_initialization_kwargs:
+    gain: 1.0
+  num_heads: 20
+
+  # Reward and uncertainty calculation parameters
+  reward_function: mean
+  bounds_function: std
+  bounds_function_std_beta: 2.0
+
+trainer:
+  # Precomputation parameters
+  precompute_features: True
+  precompute_features_path: ${paths.features_dir}
+
+  # Training parameters
+  learning_rate: 1e-4
+
+  # Objective parameters
+  regularization_towards_initial_weights: 0.1
+  center_rewards_coefficient: 0.01

@@ -1,0 +1,12 @@
+# @package _global_
+
+defaults:
+  - /method/dpo_head_dropout_ensemble/default@_here_
+
+model:
+  base_model_name_or_path: Qwen/Qwen3-0.6B
+  dropout: 0.05
+
+trainer:
+  beta: 0.01
+  learning_rate: 1e-5

@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - /method/lora_ensemble/default@_here_
+
+model:
+  base_model_name_or_path: Qwen/Qwen3-1.7B
+
+trainer:
+  regularization_towards_initial_weights: 0.01
+  learning_rate: 1e-4

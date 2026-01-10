@@ -1,0 +1,24 @@
+# @package _global_
+
+pipeline: ???
+
+model:
+  # Base model parameters
+  base_model_name_or_path: ???
+
+trainer:
+  # Data preprocessing parameters
+  max_length: 2048
+
+  # Training parameters
+  per_device_train_batch_size: 16
+  gradient_accumulation_steps: 1
+
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.05
+
+  bf16: True
+
+  # Eval parameters
+  per_device_eval_batch_size: 16
+  eval_accumulation_steps: 1

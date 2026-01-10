@@ -1,0 +1,19 @@
+defaults:
+  - train
+  - _self_
+
+task_name: "precompute"
+
+# Limit training to a single step and disable evaluation and checkpointing
+trainer:
+  # Training parameters
+  max_steps: 1
+
+  # Eval parameters
+  eval_strategy: "no"
+  eval_on_start: False
+  eval_on_end: False
+
+  # Checkpointing parameters
+  save_strategy: "no"
+  save_on_end: False

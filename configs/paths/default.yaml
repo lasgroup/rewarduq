@@ -1,0 +1,13 @@
+
+# Path to root directory
+# Prefer PROJECT_ROOT env; fallback to the shell's original CWD (absolute), avoids Hydra resolver
+root_dir: ${oc.env:PROJECT_ROOT,${oc.env:PWD,.}}
+
+# Path to directory for precomputed features
+features_dir: ${paths.root_dir}/features
+
+# Path to logging directory
+log_dir: ${paths.root_dir}/logs
+
+# Generic output base directory (Hydra run/sweep dirs are configured in configs/hydra/default.yaml)
+output_dir: ${hydra:runtime.output_dir}

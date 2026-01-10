@@ -1,0 +1,15 @@
+# @package _global_
+
+defaults:
+  - /method/mlp_head_ensemble/default@_here_
+
+model:
+  base_model_name_or_path: Qwen/Qwen3-32B
+  base_model_init_kwargs:
+    dtype: bfloat16
+    low_cpu_mem_usage: True
+
+trainer:
+  learning_rate: 1e-3
+  regularization_towards_initial_weights: 1
+  center_rewards_coefficient: 0.01

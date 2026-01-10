@@ -1,0 +1,8 @@
+from transformers import AutoConfig, AutoModel
+
+from .mlp_head_ensemble_model import MLPHeadEnsembleModel, MLPHeadEnsembleModelConfig
+from .mlp_head_ensemble_pipeline import MLPHeadEnsemblePipeline
+from .mlp_head_ensemble_trainer import MLPHeadEnsembleTrainer, MLPHeadEnsembleTrainerConfig
+
+AutoConfig.register("mlp_head_ensemble_model", MLPHeadEnsembleModelConfig)
+AutoModel.register(MLPHeadEnsembleModelConfig, MLPHeadEnsembleModel)

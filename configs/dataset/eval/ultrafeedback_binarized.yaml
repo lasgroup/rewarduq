@@ -1,0 +1,3 @@
+path: trl-lib/ultrafeedback_binarized
+split: test
+num_samples: all

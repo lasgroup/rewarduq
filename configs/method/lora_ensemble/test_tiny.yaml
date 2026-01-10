@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - /method/lora_ensemble/default@_here_
+
+model:
+  base_model_name_or_path: trl-internal-testing/tiny-Qwen2ForCausalLM-2.5
+
+  peft_config:
+    inference_mode: False
+    r: 4
+    lora_alpha: 8
+    lora_dropout: 0
+    target_modules: ["q_proj", "k_proj", "v_proj", "score"]

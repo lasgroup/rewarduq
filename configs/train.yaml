@@ -1,0 +1,47 @@
+defaults:
+  # Base configs
+  - hydra: default
+  - paths: default
+  - _self_
+  # Dataset configs
+  - dataset/train: ???
+  - dataset/eval: null
+  # Method configs
+  - method: ???
+
+task_name: "train"
+
+seed: 0
+deterministic: False
+resume: False
+
+trainer:
+  # Training parameters
+  num_train_epochs: 1
+  learning_rate: 1e-4
+
+  # Eval parameters
+  eval_strategy: steps
+  eval_steps: 0.05
+  eval_on_start: True
+  eval_on_end: True
+
+  # Logging parameters
+  logging_strategy: steps
+  logging_steps: 0.001
+
+  # Checkpointing parameters
+  save_strategy: "no"
+  save_on_end: True
+
+  # Other parameters
+  seed: ${seed}
+  full_determinism: ${deterministic}
+  output_dir: ${paths.output_dir}
+  report_to: "none"
+
+# Wandb settings (only used if enabled in trainer.report_to)
+wandb:
+  entity: null
+  project: null
+  resume: null

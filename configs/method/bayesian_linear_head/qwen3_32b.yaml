@@ -1,0 +1,14 @@
+# @package _global_
+
+defaults:
+  - /method/bayesian_linear_head/default@_here_
+
+model:
+  base_model_name_or_path: Qwen/Qwen3-32B
+  base_model_init_kwargs:
+    dtype: bfloat16
+    low_cpu_mem_usage: True
+
+trainer:
+  l2_reg: 0.1
+  learning_rate: 0.001

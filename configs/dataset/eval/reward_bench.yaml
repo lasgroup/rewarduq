@@ -1,0 +1,3 @@
+path: allenai/reward-bench
+split: filtered
+num_samples: all

@@ -1,0 +1,32 @@
+program: scripts/train.py
+method: grid
+
+parameters:
+  # seed:
+  #   values: [0, 1, 2]
+  # model.std_beta:
+  #   values: [0.1, 0.5, 1, 2,]
+  trainer.learning_rate:
+    values: [1e-3, 1e-2, 1e-1]
+  trainer.l2_reg:
+    values: [1e-3, 1e-2, 1e-1]
+  # trainer.final_hessian_mode:
+  #   values: [unweighted, weighted]
+
+command:
+  - accelerate
+  - launch
+  - --config_file
+  - configs/accelerate/default.yaml
+  - ${program}
+  - --config-name
+  - train
+  - hydra.run.dir=${envvar:OUT}
+  - dataset/train=ultrafeedback_binarized
+  - dataset/eval=ultrafeedback_binarized
+  - method=bayesian_linear_head/default
+  - model.base_model_name_or_path=Qwen/Qwen3-0.6B
+  - trainer.report_to=wandb
+  - wandb.entity=${envvar:WANDB_ENTITY}
+  - wandb.project=${envvar:WANDB_PROJECT}
+  - ${args_no_hyphens}

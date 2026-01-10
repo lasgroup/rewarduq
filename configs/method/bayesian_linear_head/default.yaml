@@ -1,0 +1,28 @@
+# @package _global_
+
+defaults:
+  - /method/base@_here_
+
+pipeline: bayesian_linear_head.BayesianLinearHeadPipeline
+
+model:
+  # Feature extraction parameters
+  feature_extraction_layer: last_hidden_state
+  feature_extraction_pooling_strategy: last
+
+  # Head parameters
+  lambda_reg: ${trainer.l2_reg}
+  std_beta: 0.5
+
+trainer:
+  # Precomputation parameters
+  precompute_features: True
+  precompute_features_path: ${paths.features_dir}
+
+  # Objective parameters
+  l2_reg: 1e-5
+
+  # Training parameters
+  learning_rate: 0.01
+
+  final_hessian_mode: unweighted

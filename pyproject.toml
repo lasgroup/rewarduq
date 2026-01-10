@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rewarduq"
+description = ""
+version = "0.1.0"
+authors = [
+    { name = "Lena Libon", email = "llibon@ethz.ch" },
+    { name = "Florian Redhardt", email = "fredhardt@ethz.ch" },
+    { name = "Samuel Stante", email = "sstante@ethz.ch" },
+    { name = "Daniel Yang", email = "daniel.yang@inf.ethz.ch" },
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+requires-python = ">=3.9" # Like transformers and trl
+dependencies = [
+    # basic tools
+    "numpy>=2.0.0", # required for weighted quantiles in metrics.py
+    "pandas",
+    "tqdm",
+    "omegaconf",
+    # computation tools
+    "torch>=2.6.0",       # required for FSDP2
+    "transformers>=4.56", # required for https://github.com/huggingface/transformers/pull/39996
+    "datasets",
+    "accelerate",
+    "peft",
+    "trl==0.23",
+    # other tools
+    "huggingface-hub[hf_transfer,hf_xet]", # for faster downloads
+    "hydra-core>=1.3.2",
+    "rich>=14.2.0",
+]
+
+[project.optional-dependencies]
+notebook = ["jupyterlab", "ipykernel", "ipywidgets"]
+
+[dependency-groups]
+dev = ["pre-commit", "nbstripout", "ruff", "pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/Florian-toll/rewarduq"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+src = ["src"]
+target-version = "py39" # Like transformers and trl
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+select = [
+    # flake8
+    "F", # Pyflakes
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    # flake8 plugins
+    "B",  # flake8-bugbear
+    "C",  # flake8-comprehensions
+    "FA", # flake8-annotations
+    # other linters
+    "I",  # isort
+    "UP", # pyupgrade
+]
+ignore = [
+    "C408", # unnecessary-collection-call
+    "C901", # complex-structure
+    # avoid conflicts with linter
+    "W191", # tab-indentation
+    "E111", # indentation-with-invalid-multiple
+    "E114", # indentation-with-invalid-multiple-comment
+    "E117", # over-indented
+]
+
+# Ignore import violations in all `__init__.py` files.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "E402", # module-import-not-at-top-of-file
+    "F401", # unused-import
+    "F403", # undefined-local-with-import-star
+    "F811", # redefined-while-unused
+]
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = false
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

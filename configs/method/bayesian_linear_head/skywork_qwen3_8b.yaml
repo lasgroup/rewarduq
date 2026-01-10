@@ -1,0 +1,11 @@
+# @package _global_
+
+defaults:
+  - /method/bayesian_linear_head/default@_here_
+
+model:
+  base_model_name_or_path: Skywork/Skywork-Reward-V2-Qwen3-8B
+
+trainer:
+  l2_reg: 0.1
+  learning_rate: 0.1

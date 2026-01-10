@@ -1,0 +1,32 @@
+defaults:
+  - train
+  - _self_
+
+task_name: "debug"
+
+# Reduce dataset size for debugging
+dataset:
+  train:
+    num_samples: 24
+
+  eval:
+    num_samples: 24
+
+# Reduce steps for debugging
+trainer:
+  # Training parameters
+  max_steps: 1
+
+  # Eval parameters
+  eval_strategy: steps
+  eval_steps: 1
+  eval_on_start: False
+  eval_on_end: False
+
+  # Logging parameters
+  logging_strategy: steps
+  logging_steps: 1
+
+  # checkpointing parameters
+  save_strategy: "no"
+  save_on_end: True

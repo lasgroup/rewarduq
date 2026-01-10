@@ -1,0 +1,8 @@
+from transformers import AutoConfig, AutoModel
+
+from .bayesian_linear_head_model import BayesianLinearHeadModel, BayesianLinearHeadModelConfig
+from .bayesian_linear_head_pipeline import BayesianLinearHeadPipeline
+from .bayesian_linear_head_trainer import BayesianLinearHeadTrainer, BayesianLinearHeadTrainerConfig
+
+AutoConfig.register("bayesian_linear_head_model", BayesianLinearHeadModelConfig)
+AutoModel.register(BayesianLinearHeadModelConfig, BayesianLinearHeadModel)

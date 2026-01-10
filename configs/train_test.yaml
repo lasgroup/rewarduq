@@ -1,0 +1,25 @@
+defaults:
+  - train
+  - override dataset/train: test_zen
+  - override method: ???
+  - _self_
+
+task_name: "test"
+
+# Minimal training for testing
+trainer:
+  # Training parameters
+  max_steps: 1
+  bf16: False  # Disable bf16 for CI (no GPU)
+
+  # Eval parameters
+  eval_strategy: "no"
+  eval_on_start: False
+  eval_on_end: False
+
+  # Logging parameters
+  logging_steps: 1
+
+  # Checkpointing parameters
+  save_strategy: "no"
+  save_on_end: False

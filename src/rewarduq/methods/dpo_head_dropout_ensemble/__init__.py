@@ -1,0 +1,8 @@
+from transformers import AutoConfig, AutoModel
+
+from .dpo_head_dropout_ensemble_model import DPOHeadDropoutEnsembleModel, DPOHeadDropoutEnsembleModelConfig
+from .dpo_head_dropout_ensemble_pipeline import DPOHeadDropoutEnsemblePipeline
+from .dpo_head_dropout_ensemble_trainer import DPOHeadDropoutEnsembleTrainer, DPOHeadDropoutEnsembleTrainerConfig
+
+AutoConfig.register("dpo_head_dropout_ensemble", DPOHeadDropoutEnsembleModelConfig)
+AutoModel.register(DPOHeadDropoutEnsembleModelConfig, DPOHeadDropoutEnsembleModel)
