@@ -129,7 +129,7 @@ def calibration_statistics(
     results: dict[str, Any],
     n_bins: int = 20,
     return_output: bool = False,
-    report_to: str | list | None = None,
+    report_to: str | list | None = "none",
     **kwargs,
 ) -> dict[str, float | np.ndarray]:
     """Compute calibration statistics for the predicted preferences.

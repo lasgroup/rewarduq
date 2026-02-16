@@ -203,9 +203,7 @@ def check_supported_args(args: Any, key: str, supported_values: list[Any], temp:
 def normalize_report_to(report_to: str | list | None) -> list[str]:
     """Normalize the `report_to` parameter into a list of reporting integrations."""
     if PartialState().is_main_process:
-        if report_to is None:
-            return ["all"]
-        elif report_to == "none":
+        if report_to is None or report_to == "none":
             return []
         elif isinstance(report_to, str):
             return [report_to]
