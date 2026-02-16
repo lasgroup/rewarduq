@@ -315,9 +315,9 @@ def ranking_scores(results: dict[str, Any], **kwargs) -> dict[str, float | np.nd
     confident_true_rate = np.average(rewards[:, CHOSEN, LOWER] > rewards[:, REJECTED, UPPER], weights=weights)
     confident_false_rate = np.average(rewards[:, CHOSEN, UPPER] < rewards[:, REJECTED, LOWER], weights=weights)
 
-    def _compute_score(beta):
-        ranking_pos = _safe_div(confident_true_rate, (1 - beta) * true_rate + beta, default=0)
-        ranking_neg = _safe_div(confident_false_rate, (1 - beta) * false_rate + beta, default=0)
+    def _compute_score(alpha):
+        ranking_pos = _safe_div(confident_true_rate, (1 - alpha) * true_rate + alpha, default=0)
+        ranking_neg = _safe_div(confident_false_rate, (1 - alpha) * false_rate + alpha, default=0)
         return ranking_pos - ranking_neg
 
     return {
