@@ -36,7 +36,7 @@ def load_tokenizer_and_model(
     base_model_init_kwargs: dict[str, Any] | DictConfig | None = None,
     target_modules: list[str] | None = None,
     peft_config: dict[str, Any] | DictConfig | None = None,
-) -> tuple[PreTrainedTokenizerBase, PreTrainedModel, PreTrainedModel | None]:
+) -> tuple[PreTrainedTokenizerBase, PreTrainedModel]:
     """Load a tokenizer and model from the specified model name or path.
 
     Args:
@@ -60,8 +60,8 @@ def load_tokenizer_and_model(
             If `None`, no PEFT adapter will be loaded.
 
     Returns:
-        tokenizer_and_model (tuple[PreTrainedTokenizerBase, PreTrainedModel, PreTrainedModel | None]):
-            The loaded tokenizer, model, and an optional reference model.
+        tokenizer_and_model (tuple[PreTrainedTokenizerBase, PreTrainedModel]):
+            The loaded tokenizer and model.
     """
     if base_model_init_kwargs is None:
         base_model_init_kwargs = {}
