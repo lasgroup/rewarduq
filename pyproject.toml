@@ -7,10 +7,10 @@ name = "rewarduq"
 description = ""
 version = "0.1.0"
 authors = [
-    { name = "Lena Libon", email = "llibon@ethz.ch" },
-    { name = "Florian Redhardt", email = "fredhardt@ethz.ch" },
-    { name = "Samuel Stante", email = "sstante@ethz.ch" },
     { name = "Daniel Yang", email = "daniel.yang@inf.ethz.ch" },
+    { name = "Samuel Stante", email = "sstante@ethz.ch" },
+    { name = "Florian Redhardt", email = "fredhardt@ethz.ch" },
+    { name = "Lena Libon", email = "llibon@ethz.ch" },
 ]
 readme = "README.md"
 license = "MIT"
@@ -42,7 +42,7 @@ notebook = ["jupyterlab", "ipykernel", "ipywidgets"]
 dev = ["pre-commit", "nbstripout", "ruff", "pytest"]
 
 [project.urls]
-"Homepage" = "https://github.com/Florian-toll/rewarduq"
+"Homepage" = "https://github.com/lasgroup/rewarduq"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
