@@ -1,6 +1,6 @@
 # RewardUQ: Uncertainty-Aware Reward Models
 
-![RewardUQ](https://github.com/user-attachments/assets/159bf55c-edf1-4361-9f41-ab6d2c077524)
+![RewardUQ](./assets/rewarduq_logo.svg)
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
