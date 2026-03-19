@@ -22,6 +22,8 @@ dependencies = [
     "pandas",
     "tqdm",
     "omegaconf",
+    "matplotlib",
+    "natsort",
     # computation tools
     "torch>=2.6.0",       # required for FSDP2
     "transformers>=4.56", # required for https://github.com/huggingface/transformers/pull/39996
@@ -37,7 +39,6 @@ dependencies = [
 
 [project.optional-dependencies]
 notebook = ["jupyterlab", "ipykernel", "ipywidgets"]
-plots = ["matplotlib", "natsort"]
 
 [dependency-groups]
 dev = ["pre-commit", "nbstripout", "ruff", "pytest"]

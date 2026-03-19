@@ -4594,6 +4594,9 @@ dependencies = [
     { name = "datasets" },
     { name = "huggingface-hub", extra = ["hf-transfer", "hf-xet"] },
     { name = "hydra-core" },
+    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
+    { name = "matplotlib", version = "3.10.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
+    { name = "natsort" },
     { name = "numpy", version = "2.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.10.*'" },
     { name = "numpy", version = "2.4.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
@@ -4616,11 +4619,6 @@ notebook = [
     { name = "ipywidgets" },
     { name = "jupyterlab" },
 ]
-plots = [
-    { name = "matplotlib", version = "3.9.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.10'" },
-    { name = "matplotlib", version = "3.10.8", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.10'" },
-    { name = "natsort" },
-]
 
 [package.dev-dependencies]
 dev = [
@@ -4641,8 +4639,8 @@ requires-dist = [
     { name = "ipykernel", marker = "extra == 'notebook'" },
     { name = "ipywidgets", marker = "extra == 'notebook'" },
     { name = "jupyterlab", marker = "extra == 'notebook'" },
-    { name = "matplotlib", marker = "extra == 'plots'" },
-    { name = "natsort", marker = "extra == 'plots'" },
+    { name = "matplotlib" },
+    { name = "natsort" },
     { name = "numpy", specifier = ">=2.0.0" },
     { name = "omegaconf" },
     { name = "pandas" },
@@ -4653,7 +4651,7 @@ requires-dist = [
     { name = "transformers", specifier = ">=4.56" },
     { name = "trl", specifier = "==0.23" },
 ]
-provides-extras = ["notebook", "plots"]
+provides-extras = ["notebook"]
 
 [package.metadata.requires-dev]
 dev = [
