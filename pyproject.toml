@@ -37,6 +37,7 @@ dependencies = [
 
 [project.optional-dependencies]
 notebook = ["jupyterlab", "ipykernel", "ipywidgets"]
+plots = ["matplotlib", "natsort"]
 
 [dependency-groups]
 dev = ["pre-commit", "nbstripout", "ruff", "pytest"]
