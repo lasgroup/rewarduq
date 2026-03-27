@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from pathlib import Path
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -8,8 +11,10 @@ from omegaconf import OmegaConf
 from rewarduq.metrics import PRED, UPPER, compute_default_metrics
 
 
-def load_configs(paths: list[Path], config_keys: list[str]) -> pd.DataFrame:
+def load_configs(paths: list[str | Path], config_keys: list[str]) -> pd.DataFrame:
     """Load configs from results folders."""
+    paths = [Path(path) for path in paths]
+
     results = []
     for path in paths:
         # Load config
@@ -29,13 +34,17 @@ def load_configs(paths: list[Path], config_keys: list[str]) -> pd.DataFrame:
 
 
 def load_metrics(
-    paths: list[Path],
+    paths: list[str | Path],
     config_keys: list[str],
     metric_keys: list[str],
-    metric_weights: np.ndarray,
-    steps: str = "final",
+    metric_weights: np.ndarray | None = None,
+    steps: int | list[int] | Literal["all", "final"] = "final",
 ) -> pd.DataFrame:
     """Load predictions from results folders and evaluate metrics."""
+    paths = [Path(path) for path in paths]
+    if isinstance(steps, int):
+        steps = [steps]
+
     results = []
     for path in paths:
         # Load config
@@ -43,10 +52,12 @@ def load_metrics(
         config = OmegaConf.load(path_config)
 
         # Resolve paths
-        path_predictions = (path / "predictions").glob("rewards_*.npy")
-        if steps == "all":
-            pass
+        if isinstance(steps, list):
+            path_predictions = [path / "predictions" / f"rewards_{step}.npy" for step in steps]
+        elif steps == "all":
+            path_predictions = (path / "predictions").glob("rewards_*.npy")
         elif steps == "final":
+            path_predictions = (path / "predictions").glob("rewards_*.npy")
             path_predictions = [max(path_predictions, key=lambda path: int(path.stem.split("_")[1]))]
         else:
             raise ValueError(f"Unsupported steps specifier: {steps}")
@@ -78,12 +89,16 @@ def load_metrics(
 
 
 def load_predictions(
-    paths: list[Path],
+    paths: list[str | Path],
     config_keys: list[str],
     beta_mapping: dict[str, str],
-    steps: str = "final",
+    steps: int | list[int] | Literal["all", "final"] = "final",
 ) -> pd.DataFrame:
     """Load predictions from results folders and reconstruct rewards mean and std."""
+    paths = [Path(path) for path in paths]
+    if isinstance(steps, int):
+        steps = [steps]
+
     results = []
     for path in paths:
         # Load config
@@ -94,10 +109,12 @@ def load_predictions(
         beta_orig = OmegaConf.select(config, beta_mapping[config["pipeline"]])
 
         # Resolve paths
-        path_predictions = (path / "predictions").glob("rewards_*.npy")
-        if steps == "all":
-            pass
+        if isinstance(steps, list):
+            path_predictions = [path / "predictions" / f"rewards_{step}.npy" for step in steps]
+        elif steps == "all":
+            path_predictions = (path / "predictions").glob("rewards_*.npy")
         elif steps == "final":
+            path_predictions = (path / "predictions").glob("rewards_*.npy")
             path_predictions = [max(path_predictions, key=lambda path: int(path.stem.split("_")[1]))]
         else:
             raise ValueError(f"Unsupported steps specifier: {steps}")
@@ -116,6 +133,7 @@ def load_predictions(
             result["step"] = int(path_prediction.stem.split("_")[1])
             result["rewards_mean"] = rewards_mean
             result["rewards_std"] = rewards_std
+            result["beta_orig"] = beta_orig
             result["path"] = str(path)
             results.append(result)
 
