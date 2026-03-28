@@ -84,7 +84,7 @@ def load_metrics(
         raise ValueError("beta_mapping must be provided when beta_optimal is True.")
 
     results = []
-    for path in tqdm(paths, desc="Loading metrics"):
+    for path in tqdm(paths, disable=len(paths) <= 5, desc="Loading metrics"):
         # Load config
         path_config = path / ".hydra" / "config.yaml"
         config = OmegaConf.load(path_config)
@@ -150,7 +150,7 @@ def load_predictions(
         steps = [steps]
 
     results = []
-    for path in tqdm(paths, desc="Loading predictions"):
+    for path in tqdm(paths, disable=len(paths) <= 5, desc="Loading predictions"):
         # Load config
         path_config = path / ".hydra" / "config.yaml"
         config = OmegaConf.load(path_config)
