@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from natsort import natsort_keygen
 from omegaconf import OmegaConf
+from tqdm.auto import tqdm
 
 from rewarduq.metrics import PRED, UPPER, compute_default_metrics
 
@@ -46,7 +47,7 @@ def load_metrics(
         steps = [steps]
 
     results = []
-    for path in paths:
+    for path in tqdm(paths, desc="Loading metrics"):
         # Load config
         path_config = path / ".hydra" / "config.yaml"
         config = OmegaConf.load(path_config)
@@ -100,7 +101,7 @@ def load_predictions(
         steps = [steps]
 
     results = []
-    for path in paths:
+    for path in tqdm(paths, desc="Loading predictions"):
         # Load config
         path_config = path / ".hydra" / "config.yaml"
         config = OmegaConf.load(path_config)
