@@ -13,7 +13,7 @@ authors = [
     { name = "Lena Libon", email = "llibon@ethz.ch" },
 ]
 readme = "README.md"
-license = "MIT"
+license = "Apache-2.0"
 license-files = ["LICEN[CS]E*"]
 requires-python = ">=3.9" # Like transformers and trl
 dependencies = [
@@ -51,7 +51,6 @@ testpaths = ["tests"]
 src = ["src"]
 target-version = "py39" # Like transformers and trl
 line-length = 120
-indent-width = 4
 
 [tool.ruff.lint]
 select = [
@@ -85,10 +84,3 @@ ignore = [
     "F403", # undefined-local-with-import-star
     "F811", # redefined-while-unused
 ]
-
-[tool.ruff.lint.isort]
-split-on-trailing-comma = false
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"

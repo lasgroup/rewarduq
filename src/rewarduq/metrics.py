@@ -53,8 +53,6 @@ def compute_statistics(
     prefix: str = "",
 ) -> dict[str, float | np.ndarray]:
     """Compute basic statistics over predictions, lower bounds, and upper bounds."""
-    if weights is None:
-        weights = np.ones(len(values))
 
     def _statistics(values: np.ndarray, prefix: str) -> dict[str, float | np.ndarray]:
         quantiles = np.quantile(values, q=[0, 0.25, 0.5, 0.75, 1], method="inverted_cdf", weights=weights)
@@ -81,7 +79,7 @@ def reward_statistics(results: dict[str, Any], **kwargs) -> dict[str, float | np
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights")
 
     margins = compute_reward_margins(rewards)
 
@@ -98,7 +96,7 @@ def preference_statistics(results: dict[str, Any], **kwargs) -> dict[str, float 
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights")
 
     prefs_all = compute_pref_probs(rewards)
 
@@ -118,7 +116,7 @@ def win_rate(results: dict[str, Any], **kwargs) -> dict[str, float | np.ndarray]
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights")
 
     win_rate = np.average(rewards[:, CHOSEN, PRED] > rewards[:, REJECTED, PRED], weights=weights)
 
@@ -129,7 +127,7 @@ def calibration_statistics(
     results: dict[str, Any],
     n_bins: int = 20,
     return_output: bool = False,
-    report_to: str | list | None = None,
+    report_to: str | list | None = "none",
     **kwargs,
 ) -> dict[str, float | np.ndarray]:
     """Compute calibration statistics for the predicted preferences.
@@ -152,7 +150,7 @@ def calibration_statistics(
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights") if results.get("weights") is not None else np.ones(len(rewards))
 
     report_to = normalize_report_to(report_to)
 
@@ -283,7 +281,7 @@ def confidence_statistics(results: dict[str, Any], **kwargs) -> dict[str, float 
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights")
 
     true_rate = np.average(rewards[:, CHOSEN, PRED] > rewards[:, REJECTED, PRED], weights=weights)  # Aka win_rate
     false_rate = 1 - true_rate
@@ -307,7 +305,7 @@ def ranking_scores(results: dict[str, Any], **kwargs) -> dict[str, float | np.nd
         raise ValueError("No rewards found in results. Cannot compute metric.")
 
     rewards = results["rewards"]
-    weights = results.get("weights", np.ones(len(rewards)))
+    weights = results.get("weights")
 
     true_rate = np.average(rewards[:, CHOSEN, PRED] > rewards[:, REJECTED, PRED], weights=weights)  # Aka win_rate
     false_rate = 1 - true_rate
@@ -315,9 +313,9 @@ def ranking_scores(results: dict[str, Any], **kwargs) -> dict[str, float | np.nd
     confident_true_rate = np.average(rewards[:, CHOSEN, LOWER] > rewards[:, REJECTED, UPPER], weights=weights)
     confident_false_rate = np.average(rewards[:, CHOSEN, UPPER] < rewards[:, REJECTED, LOWER], weights=weights)
 
-    def _compute_score(beta):
-        ranking_pos = _safe_div(confident_true_rate, (1 - beta) * true_rate + beta, default=0)
-        ranking_neg = _safe_div(confident_false_rate, (1 - beta) * false_rate + beta, default=0)
+    def _compute_score(alpha):
+        ranking_pos = _safe_div(confident_true_rate, (1 - alpha) * true_rate + alpha, default=0)
+        ranking_neg = _safe_div(confident_false_rate, (1 - alpha) * false_rate + alpha, default=0)
         return ranking_pos - ranking_neg
 
     return {

@@ -9,6 +9,7 @@
 
 ## Updates
 
+- 27.02.2026: We have released the current version of our paper on [arXiv](https://arxiv.org/abs/2602.24040).
 - 12.11.2025: We have been accepted to the EIML workshop @ EurIPS 2025!
 
 ## Introduction
@@ -278,15 +279,15 @@ We welcome and encourage contributions from the community! Whether you want to a
 4. Submit a [Pull Request](https://github.com/lasgroup/rewarduq/pulls).
 
 ## Citation
+If you find this work useful, please consider citing this paper:
 
 ```bibtex
-@misc{yang2025rewarduq,
-  author = {Daniel Yang and Samuel Stante and Florian Redhardt and Lena Libon and Barna Pasztor and Parnian Kassraie and Ido Hakimi and Andreas Krause},
+@article{yang2025rewarduq,
   title = {RewardUQ: A Unified Framework for Uncertainty-Aware Reward Models},
-  year = {2025},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/lasgroup/rewarduq}}
+  author = {Yang, Daniel and Stante, Samuel and Redhardt, Florian and Libon, Lena and Kassraie, Parnian and Hakimi, Ido and Pásztor, Barna and Krause, Andreas},
+  year = {2026},
+  journal = {arXiv preprint arXiv:2602.24040},
+  url = {https://arxiv.org/abs/2602.24040},
 }
 ```
 
