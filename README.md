@@ -9,6 +9,7 @@
 
 ## Updates
 
+- 25.03.2026: We published a [blog post](https://lasgroup.github.io/rlhf/RewardUQ.html) providing a high-level overview and summary of the key findings of our paper.
 - 27.02.2026: We have released the current version of our paper on [arXiv](https://arxiv.org/abs/2602.24040).
 - 12.11.2025: We have been accepted to the EIML workshop @ EurIPS 2025!
 
